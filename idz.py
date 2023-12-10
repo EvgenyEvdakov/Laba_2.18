@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#Для своего варианта лабораторной работы 2.17 добавьте возможность получения имени файла данных, используя
-# соответствующую переменную окружения.
+#Для своего варианта лабораторной работы 2.17 добавьте возможность получения имени файла
+#данных, используя соответстсвующую переменную окружения.
 
 import json
 import argparse
@@ -35,10 +35,14 @@ if __name__ == '__main__':
     parser.add_argument('--add', action='store_true', help='Добавить новый маршрут')
     parser.add_argument('--number', type=str, help='Номер маршрута для поиска')
 
-    args = parser.parse_args()
-
     # Получение имени файла данных из переменной окружения
-    file_name = os.getenv('ROUTE_DATA_FILE', 'idz.json')
+    file_name = os.getenv('ROUTE_DATA_FILE')
+
+    if not file_name:
+        print("Переменная окружения ROUTE_DATA_FILE не установлена.")
+        exit()
+
+    args = parser.parse_args()
 
     try:
         with open(file_name, "r") as file:
